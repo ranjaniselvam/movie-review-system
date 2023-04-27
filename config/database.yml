@@ -30,3 +30,4 @@ production:
     username: postgres
     password: ammu
     host: localhost
+    port: 5432
