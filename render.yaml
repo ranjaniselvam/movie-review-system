@@ -1,0 +1,18 @@
+databases:
+  - name: postgres_rails
+    databaseName: postgres_rails
+    user: postgres
+
+services:
+  - type: web
+    name: postgres_rails
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: postgres://user:ammu@localhost/postgres_rails
+        fromDatabase:
+          name: postgres_rails
+          property: connectionString
+      - key: 2a9c02fd515ffcd610d76923407e701a
+        sync: false

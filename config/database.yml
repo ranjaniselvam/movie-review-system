@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -21,13 +21,17 @@ test:
   database: db/test.sqlite3
 
 production:
-#  <<: *default
-#  database: db/production.sqlite3
-    adapter: postgresql
-    encoding: unicode
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
     database: postgres_rails
-    pool: 5
     username: postgres
     password: ammu
-    host: localhost
-    port: 5432
+#  database: db/production.sqlite3
+#    adapter: postgresql
+#    encoding: unicode
+#    database: postgres_rails
+#    pool: 5
+#    username: postgres
+#    password: ammu
+#    host: localhost
+#    port: 5432
