@@ -1,7 +1,7 @@
 databases:
   - name: postgres_rails
     databaseName: postgres_rails
-    user: postgres
+    user: user
 
 services:
   - type: web
