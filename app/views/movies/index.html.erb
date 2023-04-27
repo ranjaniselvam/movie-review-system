@@ -1,0 +1,22 @@
+<% if @movies.length >0 %>
+<div class="movie-container ">
+     <div class="row" >
+      <% @movies.each do |movie| %>
+        <div class="col-sm-6 col-md-3">
+
+          <div><%= link_to image_tag(movie.poster ,style: "height: 300px;width:300px"), movie %></div>
+
+          <h3 style="display: block;"> <%= movie.name %> - <%=movie.release_date.year %></h3>
+          <p> Average Rating : <%= (movie.reviews_average_rating).floor(1) %> ⭐</p>
+          <p> Review Count :<%= movie.reviews_count  %> </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<%else %>
+  No Movies !
+<% end %>
+
+
+<%= will_paginate @movies %>

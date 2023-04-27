@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="col" style="padding: 10px">
+        <%= image_tag(@movie.poster ,style: "height: 350px;width:350px")  %></div>
+        <div class="table-responsive">
+          <table class="table">
+            <tbody>
+            <tr>
+              <td><strong>Name:</strong></td>
+              <td><%= @movie.name %></td>
+            </tr>
+            <tr>
+              <td><strong> Released On :</strong></td>
+              <td><%= @movie.release_date %></td>
+            </tr>
+            <tr>
+              <td><strong>Average Rating :</strong></td>
+              <td><%= (@movie.reviews.average(:ratings) || 0).floor(1)%> ⭐ </td>
+            </tr>
+            <tr>
+              <td>
+                <%= render 'reviews/form' ,movie: @movie, review: @movie.reviews.build %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-7 col-md-offset-1">
+        <h1 class="review_title"> Recent Reviews for <%= @movie.name %></h1>
+
+        <% if @movie.reviews.length < 1   %>
+          <h3>No reviews just yet, would you like to add the first!</h3>
+        <% else %>
+          <%= render 'reviews/review' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_movie_path(@movie) %> |
+<%= link_to 'Back', movies_path %>

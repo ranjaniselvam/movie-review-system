@@ -1,0 +1,87 @@
+<!--Navigation bar-->
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+      <ul class="nav">
+      <%= link_to "Movies", movies_path, class: "navbar-brand" %>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "New Movie", new_movie_path,  class: 'nav-link',data: { remote: true,bs_toggle: "modal" ,bs_target: "#new-movie-modal"} %>
+
+            <div class="modal fade" id="new-movie-modal" tabindex="-1" role="dialog" aria-labelledby="new-movie-modal-label" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="newMovieModalLabel">New Movie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div id="newMovieForm">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+          <li class="nav-item">
+            <%= link_to "Edit Your Profile", '#', data: { remote: true,bs_toggle: "modal" ,bs_target: "#edit-profile-modal"}, class: 'nav-link' %>
+            <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog" aria-labelledby="edit-profile-modal-label" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <%= render "users/registrations/edit" ,resource: current_user,resource_name: :user%>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </li>
+
+          <li class="nav-item">
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete,data:{confirm: 'Are you sure ? '}, class: 'nav-link' %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+    <!-- /.navbar-collapse -->
+  <!-- /.container-fluid -->
+</nav>
+<% if signed_in? %>
+
+  <div class="row">
+    <div class="col">
+      <br>
+      <%= form_tag(movies_path, method: :get,class: "form") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search by movie name" %>
+        <%= submit_tag "Search" %>
+      <% end %>
+      <br>
+    </div>
+
+    <div class="col">
+      <br>
+      <%= form_tag(movies_path, method: :get,class: "form-row") do %>
+        <%= label_tag :release_date, "Filter Movies By Year: " %>
+
+        <%= number_field_tag :from_year, params[:from_year],  in: 1700..Date.today.year,placeholder: 'From' %>
+
+        <%= number_field_tag :to_year, params[:to_year],  in: 1700..Date.today.year ,placeholder: 'To'%>
+        <%= submit_tag "Filter" %>
+      <% end %>
+      <br>
+    </div>
+  </div>
+
+
+<% end %>

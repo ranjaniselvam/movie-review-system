@@ -1,0 +1,37 @@
+<h1>All Reviews for <%= @movie.name %></h1>
+<% @movie.reviews.each do |review| %>
+    <% if !review.user.nil?  %>
+      <li><strong> <%= review.user.email.split('@')[0] %>  </strong>
+        <small> <%= time_ago_in_words(review.created_at) %> ago</small>
+    <% end %>
+
+    <% if !review.ratings.nil? %>
+      <p>
+        <% review.ratings.times do %> ⭐ <%end %>
+      </p>
+    <% end %>
+
+    <p><%= review.comment %></p>
+    <p>
+      <% if can? :manage ,review %>
+        <%= link_to "Edit" ,edit_movie_review_path(@movie,review)  %>
+        <%= link_to "Delete" , movie_review_path(@movie,review), method: :delete, data: { confirm: 'Are you sure?' }  %>
+      <% end %>
+    </p>
+    </li>
+
+    <p>
+      <% if !review.id.nil? %>
+        <%= number_to_human(review.get_upvotes.size) %>
+        <%= link_to "upvote", upvote_movie_review_path(@movie,review), method: :put %>
+        <%= number_to_human(review.get_downvotes.size) %>
+        <%= link_to "downvote", downvote_movie_review_path(@movie,review), method: :put %>
+      <% end %>
+    </p>
+  </div>
+      <hr>
+<% end %>
+
+
+<%= link_to "Back", @movie %>|
+<%= will_paginate @reviews %>

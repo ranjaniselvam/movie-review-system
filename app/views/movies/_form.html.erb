@@ -1,0 +1,23 @@
+<div class="modal-body">
+  <%= form_with(model: @movie, local: false)  do |form| %>
+    <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :release_date %>
+    <%= form.date_select :release_date ,start_year: 1900, end_year:  Date.today.year + 5%>
+  </div>
+
+  <div class="field">
+    <%= form.label :poster %>
+    <%= form.file_field :poster%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>
+</div>

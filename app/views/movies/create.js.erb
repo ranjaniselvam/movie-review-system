@@ -1,0 +1,21 @@
+<% if @movie.errors.any? %>
+alert("Invalid !");
+document.getElementById('newMovieForm').innerHTML = ("<%= escape_javascript(render 'form',movie: @movie ) %>");
+<% else %>
+// Append new movie to the movie list
+const row2 = document.querySelector('.row');
+
+const newMovieCard = document.createElement('div');
+newMovieCard.classList.add('col-sm-6', 'col-md-3');
+newMovieCard.innerHTML = `
+  <div>
+    <img src="<%=j @movie.poster %>" style="height: 300px;width:300px" />
+  </div>
+  <h3 style="display: block;"><%= j @movie.name %> - <%= j @movie.release_date.year %></h3>
+  <p> Average Rating : <%= (@movie.reviews_average_rating || 0.0).floor(1) %> ⭐</p>
+  <p> Review Count : <%= j @movie.reviews_count || 0 %> </p>
+`;
+
+row2.appendChild(newMovieCard);
+console.log("js check");
+<% end %>

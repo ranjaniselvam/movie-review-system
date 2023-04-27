@@ -7,12 +7,16 @@ ruby '3.1.3'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.3'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
+
+gem 'pg'
+
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
+gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -31,6 +35,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rubocop'
 end
 
 group :development do
@@ -51,3 +56,22 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+#authentication
+gem 'devise'
+
+group :development do
+  gem 'letter_opener'
+end
+
+
+#like/dislike
+gem 'acts_as_votable'
+
+#authorization
+gem 'cancancan'
+
+#pagination
+gem 'will_paginate', '~> 3.3'
+
