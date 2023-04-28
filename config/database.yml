@@ -22,7 +22,7 @@ test:
 
 production:
     <<: *default
-#    url: <%#= ENV['DATABASE_URL'] %>
+    url: <%= ENV['DATABASE_URL'] %>
     database: postgres_rails
     username: postgres
     password: ammu

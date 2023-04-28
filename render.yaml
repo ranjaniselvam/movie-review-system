@@ -1,18 +1,24 @@
 databases:
   - name: postgres_rails
-    databaseName: postgres_rails
-    user: user
+    ipAllowList: []
+#    databaseName: postgres_rails
+#    user: user
 
 services:
   - type: web
     name: postgres_rails
     env: ruby
     buildCommand: "./bin/render-build.sh"
-    startCommand: "bundle exec puma -C config/puma.rb"
+    startCommand: "bundle exec rails s"
     envVars:
-      - key: postgres://user:ammu@localhost/postgres_rails
+      - key: DATABASE_URL
         fromDatabase:
           name: postgres_rails
           property: connectionString
-      - key: 2a9c02fd515ffcd610d76923407e701a
+      - key: RAILS_MASTER_KEY
         sync: false
+  - type: redis
+    name: redis
+    ipAllowList: []
+    plan: free
+    maxmemoryPolicy: noeviction
